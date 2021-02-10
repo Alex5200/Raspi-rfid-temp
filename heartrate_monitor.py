@@ -5,13 +5,14 @@ import threading
 import time
 import numpy as np
 
-
+BPS = []
+SPO2 = []
 class HeartRateMonitor(object):
     """
     A class that encapsulates the max30102 device into a thread
     """
 
-    LOOP_TIME = 1
+    LOOP_TIME = 0.001
 
     def __init__(self, print_raw=False, print_result=False):
         self.bpm = 0
@@ -40,11 +41,11 @@ class HeartRateMonitor(object):
                     if self.print_raw:
                         print("{0}, {1}".format(ir, red))
 
-                while len(ir_data) > 100:
+                while len(ir_data) > 25:
                     ir_data.pop(0)
                     red_data.pop(0)
 
-                if len(ir_data) == 100:
+                if len(ir_data) == 25:
                     bpm, valid_bpm, spo2, valid_spo2 = hrcalc.calc_hr_and_spo2(ir_data, red_data)
                     if valid_bpm:
                         bpms.append(bpm)
@@ -56,7 +57,9 @@ class HeartRateMonitor(object):
                             if self.print_result:
                                 print("Finger not detected")
                         if self.print_result:
-                            print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
+                            BPS.append(self.bpm)
+                            SPO2.append(spo2)
+                           # print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
 
             time.sleep(self.LOOP_TIME)
 
