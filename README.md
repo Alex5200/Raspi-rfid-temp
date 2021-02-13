@@ -37,4 +37,4 @@ sensor.get_ambient()
 sensor.get_object_1()
 ```
 
-![Test Image 5](https://www.raspberrypi.org/documentation/usage/gpio/images/GPIO-Pinout-Diagram-2.png)
+![image](https://www.raspberrypi.org/documentation/usage/gpio/images/GPIO-Pinout-Diagram-2.png)
